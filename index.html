@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习</title>
+  </head>
+  <body>
+    <div>应该说点啥</div>
+    <script type="text/javascript">
+      //1.循环数组让arr里的所有数字加5
+      let arr = [2, 33, 41, 225, 123];
+      for (let i = 0; i < arr.length; i++) {
+        arr[i] += 5;
+      }
+      console.log(arr);
+
+      let b = [1, 2, 3, 5];
+      b.forEach((item, index) => {
+        b[index] += 5;
+      });
+      console.log(b);
+
+      //2.每次执行此函数,让flag的值在0和1之间来回切换
+      var flag = 0;
+      function toggle() {
+        if (flag) {
+          flag = 0;
+        } else {
+          flag = 1;
+        }
+        console.log(flag);
+      }
+      toggle(); //1
+      toggle(); //0
+      toggle(); //1
+    </script>
+  </body>
+</html>
