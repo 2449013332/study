@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      /**数组去重**/
+      //方法一：Set去重
+      let arr = [2, 3, 2, 3, 5, 5, 6, 9, 7, 8, 9];
+      let newArr = [...new Set(arr)];
+      console.log(newArr);
+      //方法二：for循环+includes去重
+      let arr1 = [33, 33, 55, 33, 66, 77, 44, 55, 88, 88, 99];
+      let newArr1 = [];
+      for (let i = 0; i < arr1.length; i++) {
+        if (!newArr1.includes(arr1[i])) {
+          newArr1.push(arr1[i]);
+        }
+      }
+      console.log(newArr1);
+
+      /**用双重for循环实现99乘法表**/
+      for (let i = 1; i <= 9; i++) {
+        let product = "";
+        for (let j = 1; j <= i; j++) {
+          product = product + `${i}x${j}=${j * i}\t`;
+        }
+        console.log(product);
+      }
+
+    </script>
+  </body>
+</html>
