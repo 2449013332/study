@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轮播图</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div class="outer">
+        <div class="inner">
+            <img src="./img/12.jpg" alt="">
+            <img src="./img/14.jpg" alt="">
+            <img src="./img/15.jpg" alt="">
+            <img src="./img/22.jpg" alt="">
+        </div>
+    </div>
+    <button onclick="left()">左</button>
+    <button onclick="right()">右</button>
+    <button onclick="setIndex(0)">0</button>
+    <button onclick="right">1</button>
+    <button onclick="right">2</button>
+    <button onclick="right">3</button>
+    <script>
+        let index=0//显示图片的下标
+        function refresh(){
+            if(index<0){
+                index=3
+            }else if(index>2){
+                index=0
+            }
+           let outer=document.querySelector(".outer")
+           let width=getComputedStyle(outer).width
+           width=Number(width.slice(0,-2)) 
+           outer.querySelector(".inner").style.left=index*width * -1+"px"
+
+        }
+       
+        let refreshWrapper = (func)=>{
+            return function(...args){
+                let result =func(...args)
+                refresh()
+                return result
+            }
+        }
+       let left=refreshWrapper(()=>{
+            index--
+        })
+       let right=refreshWrapper(()=>{
+            index++
+        })
+        let setIndex=refreshWrapper((idx)=>{
+            index=idx
+        })
+        refresh()
+    </script>
+</body>
+</html>
