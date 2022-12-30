@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,67 +8,84 @@
     <title>轮播图</title>
     <link rel="stylesheet" href="./index.css">
 </head>
+
 <body>
-    <div class="outer">
-        <div class="inner">
+    <div class="carousel">
+        <div class="container">
             <img src="./img/12.jpg" alt="">
             <img src="./img/14.jpg" alt="">
             <img src="./img/15.jpg" alt="">
             <img src="./img/22.jpg" alt="">
         </div>
         <div class="shift">
-            <div class="btn left" onclick="left()">&lt;</div>
-            <div class="btn right" onclick="right()">&gt;</div>
+            <div class="btn left" onclick="leftShift()">&lt;</div>
+            <div class="btn right" onclick="rightShift()">&gt;</div>
         </div>
         <div class="bottom">
             <div class="indicator" onclick="setIndex(0)">0</div>
-            <div class="indicator" onclick="right">1</div>
-            <div class="indicator" onclick="right">2</div>
-            <div class="indicator" onclick="right">3</div>
+            <div class="indicator" onclick="setIndex(1)">1</div>
+            <div class="indicator" onclick="setIndex(2)">2</div>
+            <div class="indicator" onclick="setIndex(3)">3</div>
         </div>
     </div>
- 
-  
+
+
     <script>
-        let index=0//显示图片的下标
-        let imgCount=document.querySelectorAll(".outer .inner .img").length//图片数量
-        const bottom=document.querySelector(".outer .bottom")
-        for(let i=0;i<imgCount;i++){
-            const indicator=document.createElement("div")
+        let index = 0//显示图片的下标
+        let imgCount = document.querySelectorAll(".carousel .container .img").length//图片数量
+        const bottom = document.querySelector(".carousel .bottom")
+        for (let i = 0; i < imgCount; i++) {
+            const indicator = document.createElement("div")
             indicator.classList.add("indicator")
-            indicator.onclick=()=>setIndex(i)
-           bottom.appendChild(indicator)
+            indicator.onclick = () => setIndex(i)
+            bottom.append(indicator)
         }
-        function refresh(){
-            if(index<0){
-                index=imgCount-1
-            }else if(index>imgCount){
-                index=0
+        function createAuto(){
+           return   setInterval(()=>{
+            index++
+            refresh()
+        },300)
+        }
+        //自动滚动
+      let autoTimer=createAuto()
+        function refresh() {
+            if (index < 0) {
+                index = imgCount - 1
+            } else if (index >=imgCount) {
+                index = 0
             }
-           let outer=document.querySelector(".outer")
-           let width=getComputedStyle(outer).width
-           width=Number(width.slice(0,-2)) 
-           outer.querySelector(".inner").style.left=index*width * -1+"px"
-           
+            //获取轮播元素
+            let carousel = document.querySelector(".carousel")
+            //获取轮播框的宽度
+            let width = getComputedStyle(carousel).width
+            width = Number(width.slice(0, -2))
+            carousel.querySelector(".container").style.left = index * width * -1 + "px"
+
         }
-       
-        let refreshWrapper = (func)=>{
-            return function(...args){
-                let result =func(...args)
+
+        let refreshWrapper = (func) => {
+            return function (...args) {
+                //refresh装饰器
+                let result = func(...args)
                 refresh()
+                //重置自动滚动
+                clearInterval(autoTimer)
+                autoTimer=createAuto()
                 return result
             }
         }
-       let left=refreshWrapper(()=>{
+        let leftShift = refreshWrapper(() => {
             index--
         })
-       let right=refreshWrapper(()=>{
+
+        let rightShift = refreshWrapper(() => {
             index++
         })
-        let setIndex=refreshWrapper((idx)=>{
-            index=idx
+        let setIndex = refreshWrapper((idx) => {
+            index = idx
         })
         refresh()
     </script>
 </body>
+
 </html>
