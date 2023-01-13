@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      /**封装一个函数，输入一段字符串，如果这个字符串有重复那就返回true否则就是false
+         如：
+         fn('book') //true
+         fn('cat') //false
+      **/
+     //方法一：
+      function fn(str) {
+        var arr = str.split("");
+        for (let i = 0; i < str.length; i++) {
+          if (arr.indexOf(str[i]) !== arr.lastIndexOf(str[i])) {
+            return false;
+          }
+        }
+        return true;
+      }
+      fn("aacc");
+      //方法二：
+     
+    </script>
+  </body>
+</html>
