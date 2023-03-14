@@ -8,23 +8,30 @@
   </head>
   <body>
     <script type="text/javascript">
-   // 把数组的某一个元素向后挪一位
-     let arr=[11,22,33,44]
-     function fn(val,index){
-        let item=arr.splice(index,1) //把arr删除的元素存在item里
-        arr.splice(index+1,0,item[0])//再把删除的元素添加到arr想要的位置
-        return arr
-     }
-     fn(22,1)//[11,33,22,44]
+      // 把数组的某一个元素向后挪一位
+      let arr = [11, 22, 33, 44];
+      function fn(val, index) {
+        let item = arr.splice(index, 1); //把arr删除的元素存在item里
+        arr.splice(index + 1, 0, item[0]); //再把删除的元素添加到arr想要的位置
+        return arr;
+      }
+      fn(22, 1); //[11,33,22,44]
 
-     //把数组的某一个元素向前挪一位
-     let newArr=[11,22,33,44]
-     function fn(val,index){
-        let item=newArr.splice(index,1) //把arr删除的元素存在item里
-        newArr.splice(index-1,0,item[0])//再把删除的元素添加到arr想要的位置
-        return newArr
-     }
-     fn(22,1)//[22,11,33,44]
+      //把数组的某一个元素向前挪一位
+      let newArr = [11, 22, 33, 44];
+      function fn(val, index) {
+        let item = newArr.splice(index, 1); //把arr删除的元素存在item里
+        newArr.splice(index - 1, 0, item[0]); //再把删除的元素添加到arr想要的位置
+        return newArr;
+      }
+      fn(22, 1) //[22,11,33,44]
+        
+      //  ===========================================
+      [1, 2, 3].forEach((val) => {
+          [3, 2, 1].forEach((val) => {
+              console.log(val);//3 2 1 3 2 1 3 2 1
+          });
+       });
     </script>
   </body>
 </html>
