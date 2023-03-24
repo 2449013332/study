@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      /**
+       * 可选链 ?.
+       * 可选链 ?. 是一种访问嵌套对象属性的安全的方式。即使中间的属性不存在，也不会出现错误。
+       * 如果 ?. 左边部分不存在，就会立即停止运算（“短路效应”）。因此，如果在 ?. 的右侧有任何进一步的函数调用或操作，它们均不会执行。
+       **/
+
+      //例一：
+      let user = {}; // user 没有 address 属性
+      console.log(user?.address?.street); // undefined（不报错）
+
+      //例二：
+      let user1 = null;
+      let x = 0;
+      user1?.sayHi(x++); // 没有 "user"，因此代码执行没有到达 sayHi 调用和 x++
+      alert(x); // 0，值没有增加
+
+      //例三：
+      let userAdmin = {
+        admin() {
+          alert("I am admin");
+        },
+      };
+      let userGuest = {};
+      userAdmin.admin?.(); // I am admin
+      userGuest.admin?.(); // 啥都没发生（没有这样的方法）
+
+      //例四：
+      let key = "firstName";
+      let user2 = {
+        firstName: "John",
+      };
+      let user3 = null;
+      alert(user2?.[key]); // John
+      alert(user3?.[key]); // undefined
+    </script>
+  </body>
+</html>
