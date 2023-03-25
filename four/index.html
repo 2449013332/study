@@ -29,6 +29,21 @@
         return str.search(target) != -1;
       }
       fn("aaca");
+
+      /**
+       * 创建一个函数 readNumber，它提示输入一个数字，直到访问者输入一个有效的数字为止。结果值必须以数字形式返回。
+       * 访问者也可以通过输入空行来停止该过程。在这种情况下，函数应该返回 null。
+       **/
+      //方法一：
+      function readNumber(a) {
+        if (typeof a === "number") {
+          return a;
+        } else if (a === null || a === "") {
+          return null;
+        } else {
+          alert("请输入一个数字");
+        }
+      }
     </script>
   </body>
 </html>
