@@ -13,7 +13,7 @@
   </style>
   <body>
     <div>
-      <!-- 先加载的是loading这个图，真实的图片在data-src未进行加载 -->
+      <!-- 先加载的是xloading这个图，真实的图片在data-src未进行加载 -->
       <img src="./img/loading.png" data-src="./img/12.jpg" alt="" />
       <img src="./img/loading.png" data-src="./img/14.jpg" alt="" />
       <img src="./img/loading.png" data-src="./img/15.jpg" alt="" />
@@ -47,7 +47,7 @@
           return e.offsetTop;
         }
 
-        //防抖
+        //防抖git
         function debounce(time, fn) {
           var timeout = null;
           return function () {
@@ -63,8 +63,7 @@
           // 可视区域高度
           let height = window.innerHeight;
           //滚动区域高度
-          let top =
-            document.documentElement.scrollTop || document.body.scrollTop;
+          let top =document.documentElement.scrollTop || document.body.scrollTop;
           for (let i = 0, length = imgs.length; i < length; i++) {
             //图片距离顶部的距离大于可视区域和滚动区域之和时懒加载
             if (height + top > getTop(imgs[i])) {
