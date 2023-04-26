@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>图片懒加载</title>
+  </head>
+  <style>
+    img {
+      display: block;
+    }
+  </style>
+  <body>
+    <div>
+      <!-- 先加载的是loading这个图，真实的图片在data-src未进行加载 -->
+      <img src="./img/loading.png" data-src="./img/12.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/14.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/15.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/22.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/12.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/14.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/15.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/22.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/12.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/14.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/15.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/22.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/12.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/14.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/15.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/22.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/12.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/14.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/15.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/22.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/12.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/14.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/15.jpg" alt="" />
+      <img src="./img/loading.png" data-src="./img/22.jpg" alt="" />
+    </div>
+    <script>
+      // 必须等到网页DOM加载完后 再实现
+      window.onload = function () {
+        // 获取到浏览器顶部的距离
+        function getTop(e) {
+          return e.offsetTop;
+        }
+
+        //防抖
+        function debounce(time, fn) {
+          var timeout = null;
+          return function () {
+            if (timeout !== null) clearTimeout(timeout);
+            timeout = setTimeout(fn, time);
+          };
+        }
+
+        // 懒加载实现
+        function lazyload() {
+          // 获取图片列表
+          const imgs = document.querySelectorAll("img");
+          // 可视区域高度
+          let height = window.innerHeight;
+          //滚动区域高度
+          let top =
+            document.documentElement.scrollTop || document.body.scrollTop;
+          for (let i = 0, length = imgs.length; i < length; i++) {
+            //图片距离顶部的距离大于可视区域和滚动区域之和时懒加载
+            if (height + top > getTop(imgs[i])) {
+              // 真实情况是页面开始有1秒空白，所以使用setTimeout定时1s
+              function fn(i) {
+                setTimeout(() => {
+                  //创建一个临时图片，这个图片在内存中不会到页面上去。实现隐形加载
+                  let temp = new Image();
+                  temp.src = imgs[i].getAttribute("data-src"); //只会请求一次
+                  // onload判断图片加载完毕，真是图片加载完毕，再赋值给dom节点
+                  temp.onload = function () {
+                    // 获取自定义属性data-src，用真图片替换假图片
+                    imgs[i].src = imgs[i].getAttribute("data-src");
+                  };
+                }, 1000);
+              }
+              fn(i);
+            }
+          }
+        }
+        // 页面加载，先显示当前可以显示的图片
+        lazyload();
+        // 滚屏函数 添加防抖函数
+        window.addEventListener("scroll", debounce(100, lazyload));
+      };
+    </script>
+  </body>
+</html>
