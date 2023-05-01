@@ -47,7 +47,7 @@
           return e.offsetTop;
         }
 
-        //防抖git
+        //防抖
         function debounce(time, fn) {
           var timeout = null;
           return function () {
@@ -62,8 +62,11 @@
           const imgs = document.querySelectorAll("img");
           // 可视区域高度
           let height = window.innerHeight;
+          console.log('可视区'+height)
           //滚动区域高度
           let top =document.documentElement.scrollTop || document.body.scrollTop;
+          console.log('滚动区'+top)
+          console.log(getTop(imgs[2]))
           for (let i = 0, length = imgs.length; i < length; i++) {
             //图片距离顶部的距离大于可视区域和滚动区域之和时懒加载
             if (height + top > getTop(imgs[i])) {
